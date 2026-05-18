@@ -1,19 +1,18 @@
 import os
-import mysql.connector
+try:
+    import mysql.connector
+except ImportError:
+    print("[WARNING] mysql.connector not installed. Install with: pip install mysql-connector-python")
 
 
 def get_connection():
-    """
-    Crea y retorna una conexión a la base de datos MySQL.
-    Los datos de conexión se leen desde variables de entorno
-    para no exponer credenciales en el código fuente.
-    """
+
     try:
-        db_host = os.environ.get('DB_HOST')
-        db_user = os.environ.get('DB_USER', 'avnadmin')
-        db_pw   = os.environ.get('DB_PW')
-        db_port = os.environ.get('DB_PORT', '10667')
-        db_name = os.environ.get('DB_NAME', 'defaultdb')
+        db_host = os.environ.get('DB_HOST', 'localhost')
+        db_user = os.environ.get('DB_USER', 'root')
+        db_pw   = os.environ.get('DB_PW', '')
+        db_port = os.environ.get('DB_PORT', '3306')
+        db_name = os.environ.get('DB_NAME', 'cheemstouralone')
 
         conn = mysql.connector.connect(
             host=db_host,
